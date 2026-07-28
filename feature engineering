@@ -1,0 +1,17 @@
+service_columns = [
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies"
+]
+df["TotalServices"] = df[service_columns].apply(lambda x: (x == "Yes").sum(), axis=1)
+
+plt.figure(figsize=(8,5))
+sns.countplot(data=df, x="TotalServices", hue="Churn")
+plt.title("Total Services vs Churn")
+plt.show()
