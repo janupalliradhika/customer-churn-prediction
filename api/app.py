@@ -3,7 +3,12 @@ from schemas import Customer
 import joblib
 import numpy as np
 
-app = FastAPI()
+app = FastAPI(
+    title="Customer Churn Prediction API",
+    description="Predicts whether a telecom customer is likely to churn using a Random Forest model.",
+    version="1.0"
+)
+
 
 model = joblib.load("../models/rf_model.pkl")
 
@@ -47,8 +52,16 @@ def predict(customer: Customer):
         customer.PaymentMethod_Mailed_check
     ]]
 
-    prediction = model.predict(data)
+    try:
+        print(data)
+        prediction = model.predict(data)[0]
 
-    return {
-        "Prediction": int(prediction[0])
-    }
+        if prediction == 1:
+            result = "Customer is Likely to Churn"
+        else:
+            result = "Customer is Not Likely to Churn"
+
+        return {"Prediction": result}
+
+    except Exception as e:
+        return {"Error": str(e)}
