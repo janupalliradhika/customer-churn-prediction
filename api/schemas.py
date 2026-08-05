@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List
 
 class Customer(BaseModel):
     gender: int
@@ -31,3 +32,7 @@ class Customer(BaseModel):
     PaymentMethod_Credit_card_automatic: int
     PaymentMethod_Electronic_check: int
     PaymentMethod_Mailed_check: int
+
+
+class BatchCustomers(BaseModel):
+    customers: List[Customer]

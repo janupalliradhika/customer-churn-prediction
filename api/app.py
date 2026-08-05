@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from schemas import Customer
+from schemas import Customer, BatchCustomers
 import joblib
 import numpy as np
 
@@ -51,4 +51,52 @@ def predict(customer: Customer):
 
     return {
         "Prediction": int(prediction[0])
+    }
+
+@app.post("/batch_predict")
+def batch_predict(batch: BatchCustomers):
+
+    predictions = []
+
+    for customer in batch.customers:
+
+        data = [[
+            customer.gender,
+            customer.SeniorCitizen,
+            customer.Partner,
+            customer.Dependents,
+            customer.tenure,
+            customer.PhoneService,
+            customer.PaperlessBilling,
+            customer.MonthlyCharges,
+            customer.TotalCharges,
+            customer.MultipleLines_No_phone_service,
+            customer.MultipleLines_Yes,
+            customer.InternetService_Fiber_optic,
+            customer.InternetService_No,
+            customer.OnlineSecurity_No_internet_service,
+            customer.OnlineSecurity_Yes,
+            customer.OnlineBackup_No_internet_service,
+            customer.OnlineBackup_Yes,
+            customer.DeviceProtection_No_internet_service,
+            customer.DeviceProtection_Yes,
+            customer.TechSupport_No_internet_service,
+            customer.TechSupport_Yes,
+            customer.StreamingTV_No_internet_service,
+            customer.StreamingTV_Yes,
+            customer.StreamingMovies_No_internet_service,
+            customer.StreamingMovies_Yes,
+            customer.Contract_One_year,
+            customer.Contract_Two_year,
+            customer.PaymentMethod_Credit_card_automatic,
+            customer.PaymentMethod_Electronic_check,
+            customer.PaymentMethod_Mailed_check
+        ]]
+
+        pred = model.predict(data)
+
+        predictions.append(int(pred[0]))
+
+    return {
+        "predictions": predictions
     }
