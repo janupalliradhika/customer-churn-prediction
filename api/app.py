@@ -1,16 +1,25 @@
 from fastapi import FastAPI
 from schemas import Customer, BatchCustomers
 import joblib
-import numpy as np
 
-app = FastAPI()
+app = FastAPI(
+    title="Customer Churn Prediction API",
+    description="Predicts whether a telecom customer is likely to churn using a Random Forest model.",
+    version="1.0"
+)
 
+# Load trained model
 model = joblib.load("../models/rf_model.pkl")
+
 
 @app.get("/")
 def home():
     return {"message": "Customer Churn Prediction API"}
 
+
+# -----------------------------
+# Single Customer Prediction
+# -----------------------------
 @app.post("/predict")
 def predict(customer: Customer):
 
@@ -47,11 +56,22 @@ def predict(customer: Customer):
         customer.PaymentMethod_Mailed_check
     ]]
 
-    prediction = model.predict(data)
+    try:
 
-    return {
-        "Prediction": int(prediction[0])
-    }
+        prediction = model.predict(data)[0]
+
+        if prediction == 1:
+            result = "Customer is Likely to Churn"
+        else:
+            result = "Customer is Not Likely to Churn"
+
+        return {"Prediction": result}
+
+    except Exception as e:
+
+        return {"Error": str(e)}
+
+
 
 @app.post("/batch_predict")
 def batch_predict(batch: BatchCustomers):
