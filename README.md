@@ -313,6 +313,41 @@ Example:
 
 ---
 
+---
+
+# Results
+
+The project successfully predicts customer churn using machine learning models.
+
+## Model Performance
+
+- Logistic Regression
+- Random Forest
+- XGBoost
+
+Random Forest provided the best prediction performance and was integrated with the FastAPI application.
+
+## API Results
+
+- Single customer prediction using `/predict`
+- Batch prediction using `/batch_predict`
+- Automatic request validation using Pydantic
+- Interactive API documentation using Swagger UI
+
+## Dashboard Results
+
+The dashboard provides visual analysis of:
+
+- Customer Churn Distribution
+- Contract Type Distribution
+- Monthly Charges Distribution
+- Customer Tenure Distribution
+- Internet Service Distribution
+
+These visualizations help understand customer behavior and churn patterns.
+
+---
+
 ## Features
 
 - Data Cleaning
@@ -346,13 +381,16 @@ The API was tested with:
 
 ---
 
-## Future Improvements
+## Future Improvement
 
-- Deploy the API to a cloud platform
-- Build a web dashboard for predictions
-- Add authentication and authorization
-- Improve model performance using hyperparameter tuning
-- Support CSV file upload for batch predictions
+# Future Scope
+
+- Deploy the FastAPI application on a   cloud platform.
+- Build a web application for customer churn prediction.
+- Improve model accuracy through hyperparameter tuning.
+- Add user authentication and authorization.
+- Support CSV file upload for batch predictions.
+- Integrate a real-time dashboard for business monitoring.
 
 ---
 
