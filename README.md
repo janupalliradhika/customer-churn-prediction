@@ -243,6 +243,8 @@ FastAPI automatically returns validation errors.
 POST /batch_predict
 ```
 
+
+
 ## Purpose
 
 Predict customer churn for multiple customers in a single API request.
