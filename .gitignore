@@ -1,5 +1,9 @@
 venv/
 .venv/
+<<<<<<< HEAD
+notebooks/.ipynb_checkpoints/
+=======
 .ipynb_checkpoints/
+>>>>>>> eda745da90e44c65a2f9961267cdf460bc70a1ac
 __pycache__/
 *.pyc
